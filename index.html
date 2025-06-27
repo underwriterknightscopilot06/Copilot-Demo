@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial Calculator</title>
+</head>
+<body>
+    <h1>Factorial Calculator</h1>
+    <input type="number" id="numberInput" placeholder="Enter a non-negative integer" />
+    <button id="calculateButton">Calculate Factorial</button>
+    <p id="result"></p>
+
+        // ...existing code...
+        <script>
+            document.getElementById('calculateButton').addEventListener('click', function() {
+                const number = parseInt(document.getElementById('numberInput').value);
+
+                // Check if input is valid
+                if (isNaN(number)) {
+                    alert('Please enter a valid number');
+                    return;
+                }
+
+                try {
+                    const result = factorial(number);
+                    alert(`Factorial: ${result}`);
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                }
+            });
+
+            // Example factorial function
+            function factorial(n) {
+                if (n < 0) throw new Error('Number must be non-negative');
+                if (n === 0 || n === 1) return 1;
+                return n * factorial(n - 1);
+            }
+        </script>
+    // ...existing code...
+</body>
+</html>
