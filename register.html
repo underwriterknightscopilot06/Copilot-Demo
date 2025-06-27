@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error { color: red; font-size: 0.9em; }
+    </style>
 </head>
 <body>
     <!-- Bootstrap Navbar -->
@@ -25,6 +28,84 @@
         </div>
     </nav>
 
+    <!-- Registration Form -->
+    <div class="container mt-5">
+        <h2>Register</h2>
+        <form id="registerForm" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name*</label>
+                <input type="text" class="form-control" id="name" required>
+                <div id="nameError" class="error"></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email*</label>
+                <input type="email" class="form-control" id="email" required>
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password*</label>
+                <input type="password" class="form-control" id="password" required minlength="6">
+                <div id="passwordError" class="error"></div>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password*</label>
+                <input type="password" class="form-control" id="confirmPassword" required>
+                <div id="confirmPasswordError" class="error"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            // Clear previous errors
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('confirmPasswordError').textContent = '';
+
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                valid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required.';
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Enter a valid email address.';
+                valid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                valid = false;
+            }
+
+            // Confirm Password validation
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (confirmPassword !== password) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+                valid = false;
+            }
+
+            if (valid) {
+                alert('Registration successful!');
+                // Here you can submit the form data to your backend if needed
+                // e.target.submit();
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
